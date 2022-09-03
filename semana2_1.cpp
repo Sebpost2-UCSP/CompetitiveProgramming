@@ -11,6 +11,7 @@ struct Stripe{
     char** line;
     vector<int> A;
 
+    //input de las variables
     Stripe(){
         cin>>t;
         n=new int[t];
@@ -24,15 +25,22 @@ struct Stripe{
             }
         }
     }
+    
+    //aqui encontramos el output
     void seq(){
         for (int i=0; i<t; i++){
+            //creo un vector de n+1 elementos
             A.resize(n[i]+1,0);
             for (int j=1; j<=n[i]; j++){
+                /* sumo cada vez que hay un 'W' para ver
+                cuantos cambios son necesarios para encontrar
+                k 'B' consecutivos */
                 A[j]=A[j-1];
                 if(line[i][j-1]=='W')
                     A[j]++;
             }
             int min=1000000000;
+            //pruebo con todo el anterior vector y encuentro el minimo
             for (int j=k[i]; j<=n[i];j++){
                 if (min>A[j]-A[j-k[i]])
                     min=A[j]-A[j-k[i]];
